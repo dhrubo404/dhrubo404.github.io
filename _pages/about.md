@@ -1,3 +1,9 @@
+---
+layout: single
+title: ""
+permalink: /
+author_profile: true
+---
 ## Dhrubo Chattoraj
 
 MS Systems Engineering, Boston University  
