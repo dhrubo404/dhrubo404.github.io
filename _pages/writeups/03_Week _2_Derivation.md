@@ -1,6 +1,7 @@
 ---
 title: "03 Week  2 Derivation"
 permalink: /reports/vcg/03-week--2-derivation/
+math: true
 ---
 
 This is a simulation check to verify the code output.
@@ -8,10 +9,10 @@ This is a simulation check to verify the code output.
 ## Setup
 
 Slots (no of clicks on each slot): 
-<div>
+
 \[
 x_1 = 100\ clicks; x_2=80\ clicks;x_3=50\ clicks
-\]</div>
+\]
 Values (Advertiser Values per click):
 \[
 v_1=10,v=7,v_3=5,v_4=2

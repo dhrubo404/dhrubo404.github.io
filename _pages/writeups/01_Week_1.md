@@ -1,6 +1,7 @@
 ---
 title: "01 Week 1"
 permalink: /reports/vcg/01-week-1/
+math: true
 ---
 
 #vcg #Auction #Game_Theory 

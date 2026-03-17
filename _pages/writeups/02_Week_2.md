@@ -1,6 +1,7 @@
 ---
 title: "02 Week 2"
 permalink: /reports/vcg/02-week-2/
+math: true
 ---
 
 # Context
