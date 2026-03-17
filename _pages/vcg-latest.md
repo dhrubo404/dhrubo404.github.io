@@ -1,6 +1,10 @@
 ---
-title: "VCG — Latest Report"
+title: "VCG — Writeups"
 permalink: /reports/vcg-latest/
 ---
 
-[Read the latest write-up here](https://github.com/dhrubo404/vcg_weekly_reports/blob/main/Week_2.md)
+{% assign writeups = site.pages | where_exp: "p", "p.path contains '_pages/writeups/'" | sort: 'title' | reverse %}
+
+{% for post in writeups %}
+- [{{ post.title }}]({{ post.permalink }})
+{% endfor %}
