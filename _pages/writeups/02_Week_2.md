@@ -49,8 +49,8 @@ This paper was incredibly useful in seeing a real world application of VCG aucti
 - To see how spectrum sharing works using SATYA
 
 ## References
-- Varian, H.R. and Harris, C. (2014). The VCG Auction in Theory and Practice. American Economic Review, 104(5), pp.442–445. doi: https://doi.org/10.1257/aer.104.5.442.
-- Myerson, R.B. (1981). Optimal Auction Design. Mathematics of Operations Research, 6(1), pp.58–73. doi: https://doi.org/10.1287/moor.6.1.58.
+- [Varian, H.R. and Harris, C. (2014). The VCG Auction in Theory and Practice. American Economic Review, 104(5), pp.442–445](https://doi.org/10.1257/aer.104.5.442.)
+- [Myerson, R.B. (1981). Optimal Auction Design. Mathematics of Operations Research, 6(1), pp.58–73.](https://doi.org/10.1287/moor.6.1.58.)
 
 
 
