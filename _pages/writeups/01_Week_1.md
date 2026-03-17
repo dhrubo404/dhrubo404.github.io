@@ -56,4 +56,4 @@ Simulation infrastructure is reusable. The current framework can be extended to 
 - Attempt simulation of the simplest version of that model
 
 # References
-- Levin Jonathan, Vickrey-Clarke-Groves Mechanisms, Stanford Economics 285, 2009 Ghttps://web.stanford.edu/~jdlevin/Econ%20285/Vickrey%20Auction.pdf
+- Levin Jonathan, Vickrey-Clarke-Groves Mechanisms, Stanford Economics 285, 2009 https://web.stanford.edu/~jdlevin/Econ%20285/Vickrey%20Auction.pdf
