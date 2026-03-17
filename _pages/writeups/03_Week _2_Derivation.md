@@ -15,7 +15,9 @@ $$v_1=10,v=7,v_3=5,v_4=2$$
 ## GSP Minimum-Revenue Equilibrium
 
 **Slot 3**: $p_3x_3 = v_4x_3=2\times50=100\implies p_3=2.00$
+
 **Slot 2**: $p_2x_2 = v_3(x_2-x_3)+p_3x_3=5(80-50)+100 = 150+100 = 250 \implies p_2 = 250/80 = 3.125$
+
 **Slot 1**: $p_1x_1 = v_2(x_1-x_2)+p_2x_2=7(100-80)+250=140+250=390 \implies p_1 = 390/100 = 3.90$
 
 Utilities: $u_s=v_sx_s - p_sx_s$
