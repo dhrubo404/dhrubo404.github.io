@@ -25,9 +25,7 @@ VCG on the other hand provides a more elegant solution. Since in VCG truthful bi
 ### VCG Without Knowing Clickthrough Rates
 
 The VCG Payment equation is : 
-$$
-p_1x_1=v_2(x_1-x_2)+v_3(x_2-x_3)+v_4x_3
-$$
+$$p_1x_1=v_2(x_1-x_2)+v_3(x_2-x_3)+v_4x_3$$
 It looks like $x_1,x_2,x_3$ is required to know in advance to compute what advertiser 1 owes. But in reality how many clicks each slot will get is unknown till the auction ends. However the payment can be computed on a click-by-click basis as clicks arrive in real time.
 
 Every time a click lands somewhere on the page,
@@ -39,9 +37,7 @@ Every time a click lands somewhere on the page,
 | Click on slot 3 | **Pay back** advertiser 1 the amount $b_3-b_4$  |
 
 At the end of the day, total clicks on each slot accumulate to $x_1,x_2,x_3$ naturally, and the net bill is : 
-$$
-b_2x_1-(b_2-b_3)x_2-(b_3-b_4)x_3
-$$ Hence no forecasting needed.
+$$b_2x_1-(b_2-b_3)x_2-(b_3-b_4)x_3$$ Hence no forecasting needed.
 
 In the end, Google switched from GSP to VCG because of its flexibility and cross auction consistency.
 
