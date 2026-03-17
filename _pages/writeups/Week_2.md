@@ -37,6 +37,7 @@ Every time a click lands somewhere on the page,
 | Click on slot 1 | **Charge** advertiser 1 the amount $b_2​$       |
 | Click on slot 2 | **Pay back** advertiser 1 the amount $b_2-b_3$​ |
 | Click on slot 3 | **Pay back** advertiser 1 the amount $b_3-b_4$  |
+
 At the end of the day, total clicks on each slot accumulate to $x_1,x_2,x_3$ naturally, and the net bill is : 
 $$
 b_2x_1-(b_2-b_3)x_2-(b_3-b_4)x_3
