@@ -10,13 +10,17 @@ This is a simulation check to verify the code output.
 
 Slots (no of clicks on each slot): 
 
-\[
+<div>
+$$
 x_1 = 100\ clicks; x_2=80\ clicks;x_3=50\ clicks
-\]
+$$
+</div>
 Values (Advertiser Values per click):
-\[
+<div>
+$$
 v_1=10,v=7,v_3=5,v_4=2
-\]
+$$
+</div>
 
 ## GSP Minimum-Revenue Equilibrium
 
