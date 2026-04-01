@@ -14,4 +14,7 @@ My current focus is on developing **mathematical models and simulation-based app
 
 ### Current Work
 - EV Routing & Charging Optimization  
-- Mechanism Design (VCG Auctions)  
+- Mechanism Design (VCG Auctions)
+
+### Downloads
+- [Infinitesimal Perturbation Analysis for M/M/1 system](https://github.com/dhrubo404/IPA/releases/download/v1.0/IPA_gui.exe)
