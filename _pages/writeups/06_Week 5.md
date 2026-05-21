@@ -30,7 +30,11 @@ The measured quantity is brightness temperature $T_b$ (in Kelvin), which is a pr
 
 The measurement noise, i.e. the standard deviation of the brightness-temperature measurement, is:
 
-$$\sigma_T = \frac{T_{\mathrm{sys}}}{\sqrt{B\tau}}$$
+<div>
+$$
+\sigma_T = \frac{T_{\mathrm{sys}}}{\sqrt{B\tau}}
+$$
+</div>
 
 Where:
 - $T_{\mathrm{sys}}$ = system noise temperature (a property of the hardware)
@@ -39,7 +43,11 @@ Where:
 
 Squaring, we get the variance:
 
-$$\sigma_T^2 = \frac{T_{\mathrm{sys}}^2}{B\tau} = \frac{\kappa}{B\tau}$$
+<div>
+$$
+\sigma_T^2 = \frac{T_{\mathrm{sys}}^2}{B\tau} = \frac{\kappa}{B\tau}
+$$
+</div>
 
 **Why this matters?** Measurement noise decreases as one gets more bandwidth OR more time. This means bandwidth and time are fungible i.e. one second over 10MHz is the same noise reduction as 10 seconds over 1 MHz. Both give us a time-bandwidth product of $10 \, \mathrm{MHz} \cdot \mathrm{s}$
 
@@ -49,7 +57,11 @@ The shape of this curve matters too. Since $\sigma^2 \propto 1/B$, going from $B
 
 What we actually care about is rarely brightness temperature itself. We want _geophysical products_ like total water vapor amount, wind speed, or sea surface temperature. These are estimated as weighted linear combinations of brightness temperatures across channels:
 
-$$\hat{y}_k = c_k^T T_b = \sum_j c_{k,j} T_{b,j}$$
+<div>
+$$
+\hat{y}_k = c_k^T T_b = \sum_j c_{k,j} T_{b,j}
+$$
+</div>
 
 Where:
 
@@ -63,7 +75,11 @@ For water vapor retrieval, the sensitivity vector is roughly $c_{\mathrm{IWV}} =
 
 Assuming channel noises are independent, the variance of the retrieved product is just weighted error propagation:
 
-$$\mathrm{Var}[\hat{y}_k] = \sum_j c_{k,j}^2 \sigma_j^2 = \sum_j c_{k,j}^2 \cdot \frac{\kappa_j}{B_j \tau}$$
+<div>
+$$
+\mathrm{Var}[\hat{y}_k] = \sum_j c_{k,j}^2 \sigma_j^2 = \sum_j c_{k,j}^2 \cdot \frac{\kappa_j}{B_j \tau}
+$$
+</div>
 
 **Why this matters?** Some channels are more "valuable" than others for a given product. This cross-channel weighting is the second lever the paper exploits: if 23.8 GHz tiles are expensive in an interference trap, the auction can substitute cheaper 36.5 GHz tiles, paying the price of lower sensitivity by buying more of them.
 
@@ -87,7 +103,11 @@ The mechanism that clears this market is a **Vickrey-Clarke-Groves (VCG) reverse
 
 Here it's a _reverse_ auction (procurement): the satellite is the buyer, active users are the sellers offering silence. Seller $i$'s payment is:
 
-$$p_i = \underbrace{C_i(S_i^*)}_{\text{cost reimbursed}} + \underbrace{\left[ W(S^*) - W_{-i}(S^*_{-i}) \right]}_{\text{information rent}}$$
+<div>
+$$
+p_i = \underbrace{C_i(S_{i}^{*})}_{\text{cost reimbursed}} + \underbrace{\left[ W(S^{*}) - W_{-i}(S^{*}_{-i}) \right]}_{\text{information rent}}
+$$
+</div>
 
 The information rent term answers: how much better off is the rest of the world because seller $i$ exists?
 
@@ -95,7 +115,11 @@ The information rent term answers: how much better off is the rest of the world 
 
 A set function $F : 2^\Omega \to \mathbb{R}$ is **submodular** if for any nested sets $A \subseteq Q$ and any new element $z \notin Q$:
 
-$$F(A \cup \{z\}) - F(A) \geq F(Q \cup \{z\}) - F(Q)$$
+<div>
+$$
+F(A \cup \{z\}) - F(A) \geq F(Q \cup \{z\}) - F(Q)
+$$
+</div>
 
 In words: adding $z$ to a smaller set gives at least as much benefit as adding it to a larger set. This is diminishing returns expressed as a set-function property.
 
@@ -125,7 +149,11 @@ Active users (sellers) control the tiles. A tile is "quiet" if its controlling s
 
 For a chosen quiet set $S \subseteq \Omega$, the **effective clean bandwidth** in channel $j$ is:
 
-$$B_j(S) = B_j^{(0)} + \frac{1}{\tau} \sum_{\substack{x \in S \\ j(x) = j}} \alpha_x \cdot \delta t_x \cdot \delta f_x$$
+<div>
+$$
+B_j(S) = B_j^{(0)} + \frac{1}{\tau} \sum_{\substack{x \in S \\ j(x) = j}} \alpha_x \cdot \delta t_x \cdot \delta f_x
+$$
+</div>
 
 Where:
 
@@ -143,29 +171,49 @@ Channel $j$ has two sources of error.
 
 **Thermal noise** from the radiometer equation:
 
-$$\sigma_{j,th}^2(S) = \frac{\kappa_j}{B_j(S) \cdot \tau}$$
+<div>
+$$
+\sigma_{j,th}^2(S) = \frac{\kappa_j}{B_j(S) \cdot \tau}
+$$
+</div>
 
 Where $\kappa_j \propto T_{sys,j}^2$ is a hardware constant.
 
 **Residual RFI**: even with active users complying with the emission mask $M_j$, a small amount of interference leaks through. This is modeled as a convex function in units of brightness temperature variance:
 
-$$\phi_j(M_j) = \gamma_j P_{\mathrm{RFI},j}(M_j) + \beta_j P_{\mathrm{RFI},j}^2(M_j) \quad [K^2]$$
+<div>
+$$
+\phi_j(M_j) = \gamma_j P_{\mathrm{RFI},j}(M_j) + \beta_j P_{\mathrm{RFI},j}^2(M_j) \quad [K^2]
+$$
+</div>
 
 The linear term captures the stochastic noise contribution, the quadratic term captures squared bias. Together they constitute mean squared error. The function $\phi_j$ is convex and decreasing under tighter masks.
 
 **Total channel variance**:
 
-$$\sigma_j^2\left(B_j(S), M_j\right) = \frac{\kappa_j}{B_j(S) \, \tau} + \phi_j(M_j)$$
+<div>
+$$
+\sigma_j^2\left(B_j(S), M_j\right) = \frac{\kappa_j}{B_j(S) \, \tau} + \phi_j(M_j)
+$$
+</div>
 
 ## Retrieval error propagation
 
 Plugging the channel variance into the weighted-sum retrieval and propagating error:
 
-$$\mathrm{Var}[\hat{y}_k](S) = \sum_{j=1}^J c_{k,j}^2 \left[\frac{\kappa_j}{B_j(S) \tau} + \phi_j(M_j)\right]$$
+<div>
+$$
+\mathrm{Var}[\hat{y}_k](S) = \sum_{j=1}^J c_{k,j}^2 \left[\frac{\kappa_j}{B_j(S) \tau} + \phi_j(M_j)\right]
+$$
+</div>
 
 The **mission constraint** is that retrieval variance stays below a target for every product:
 
-$$\mathrm{Var}[\hat{y}_k](S) \leq \varepsilon_k^2 \quad \forall k$$
+<div>
+$$
+\mathrm{Var}[\hat{y}_k](S) \leq \varepsilon_k^2 \quad \forall k
+$$
+</div>
 
 This defines the **feasible allocation set** $\mathcal{A} = \lbrace S \subseteq \Omega : \mathrm{Var}[\hat{y}_k](S) \leq \varepsilon_k^2 \; \forall k \rbrace$.
 
@@ -179,17 +227,29 @@ The market has one buyer (the radiometer) and $N$ sellers (active users). Each s
 
 The **buyer's valuation** is endogenous to the retrieval physics. It rewards safety margin below the error threshold:
 
-$$v_0(S) = \begin{cases} \lambda_0 \sum_k w_k \left(\varepsilon_k^2 - \mathrm{Var}[\hat{y}_k](S)\right) & \text{if } S \in \mathcal{A} \\ -\infty & \text{otherwise} \end{cases}$$
+<div>
+$$
+v_0(S) = \begin{cases} \lambda_0 \sum_k w_k \left(\varepsilon_k^2 - \mathrm{Var}[\hat{y}_k](S)\right) & \text{if } S \in \mathcal{A} \\ -\infty & \text{otherwise} \end{cases}
+$$
+</div>
 
 The $-\infty$ outside $\mathcal{A}$ is a hard mission constraint: no infeasible allocation is ever chosen. The $\lambda_0$ converts variance reduction to dollars, and $w_k$ are relative weights across products.
 
 The **seller cost** is private. Each seller has a non-decreasing cost function $C_i(S_i; \theta_i)$ with $C_i(\emptyset) = 0$, where $\theta_i$ is their private type (traffic load, QoS priority, etc.). The seller valuation is just the negative cost:
 
-$$v_i(S; \theta_i) = -C_i(S \cap \Omega_i; \theta_i)$$
+<div>
+$$
+v_i(S; \theta_i) = -C_i(S \cap \Omega_i; \theta_i)
+$$
+</div>
 
 The **social welfare** is buyer utility minus aggregate seller cost:
 
-$$W(S; \theta) = v_0(S) + \sum_{i=1}^N v_i(S; \theta_i) = v_0(S) - \sum_{i=1}^N C_i(S_i; \theta_i)$$
+<div>
+$$
+W(S; \theta) = v_0(S) + \sum_{i=1}^N v_i(S; \theta_i) = v_0(S) - \sum_{i=1}^N C_i(S_i; \theta_i)
+$$
+</div>
 
 For infeasible $S$, $W = -\infty$.
 
@@ -199,7 +259,11 @@ The paper also makes a **non-pivotal feasibility assumption**: no single seller 
 
 The mechanism picks the feasible allocation that maximizes reported social welfare:
 
-$$S^*(\hat{\theta}) \in \arg\max_{S \in \mathcal{A}} \left[ v_0(S) - \sum_{i=1}^{N} \hat{C}_i(S_i) \right]$$
+<div>
+$$
+S^{*}(\hat{\theta}) \in \arg\max_{S \in \mathcal{A}} \left[ v_0(S) - \sum_{i=1}^{N} \hat{C}_i(S_i) \right]
+$$
+</div>
 
 Basically, maximize scientific value minus total cost over all allocations that meet the mission constraint.
 
@@ -207,11 +271,19 @@ Basically, maximize scientific value minus total cost over all allocations that 
 
 The payment to seller $i$ follows the **Clarke pivot rule**, adapted for procurement:
 
-$$p_i(\hat{\theta}) = \hat{C}_i(S_i^*) + \left[ W(S^*;\hat{\theta}) - W_{-i}\left(S_{-i}^*;\hat{\theta}_{-i}\right) \right]$$
+<div>
+$$
+p_i(\hat{\theta}) = \hat{C}_i(S_{i}^{*}) + \left[ W(S^{*};\hat{\theta}) - W_{-i}\left(S_{-i}^{*};\hat{\theta}_{-i}\right) \right]
+$$
+</div>
 
 Where
 
-$$W_{-i}\left(S_{-i}^*\right) = \max_{S' \in \mathcal{A}_{-i}} \left[ v_0(S') - \sum_{j \neq i} \hat{C}_j\left(S'_j\right) \right]$$
+<div>
+$$
+W_{-i}\left(S_{-i}^{*}\right) = \max_{S' \in \mathcal{A}_{-i}} \left[ v_0(S') - \sum_{j \neq i} \hat{C}_j\left(S'_j\right) \right]
+$$
+</div>
 
 is the maximum welfare achievable if seller $i$ were absent.
 
@@ -223,18 +295,30 @@ The non-pivotal assumption guarantees $W_{-i}$ is finite, so the payment is well
 
 The crown jewel of VCG. Seller $i$'s utility under any reported cost $\hat{C}_i$ is payment minus _true_ cost:
 
-$$u_i = p_i - C_i(S_i^*)$$
+<div>
+$$
+u_i = p_i - C_i(S_{i}^{*})
+$$
+</div>
 
 Substituting the payment rule:
 
-$$u_i = \left[ \hat{C}_i\left(S_i^*\right) - C_i\left(S_i^*\right) \right] + W\left(S^*;\hat{\theta}\right) - W_{-i}\left(\hat{\theta}_{-i}\right)$$
+<div>
+$$
+u_i = \left[ \hat{C}_i\left(S_{i}^{*}\right) - C_i\left(S_{i}^{*}\right) \right] + W\left(S^{*};\hat{\theta}\right) - W_{-i}\left(\hat{\theta}_{-i}\right)
+$$
+</div>
 
 Under truth-telling ($\hat{C}_i = C_i$), the first bracket vanishes:
 
-$$u_i^{\text{truth}} = W(S^*; \theta_i, \hat{\theta}_{-i}) - W_{-i}(\hat{\theta}_{-i})$$
+<div>
+$$
+u_i^{\text{truth}} = W(S^{*}; \theta_i, \hat{\theta}_{-i}) - W_{-i}(\hat{\theta}_{-i})
+$$
+</div>
 
 **The key observation**: $W_{-i}(\hat{\theta}_{-i})$ depends only on _other sellers'_ reports. It is a constant from seller $i$'s perspective — independent of what $i$ does.
 
-So to maximize $u_i$, seller $i$ must maximize $W(S^*; \theta_i, \hat{\theta}_{-i})$. But the mechanism _already_ picks $S^*$ to maximize reported welfare. If $i$ reports truthfully, the mechanism's objective is exactly $i$'s true welfare contribution. Any lie distorts the mechanism into picking a suboptimal $S^*$ from $i$'s actual perspective.
+So to maximize $u_i$, seller $i$ must maximize $W(S^{*}; \theta_i, \hat{\theta}_{-i})$. But the mechanism _already_ picks $S^{*}$ to maximize reported welfare. If $i$ reports truthfully, the mechanism's objective is exactly $i$'s true welfare contribution. Any lie distorts the mechanism into picking a suboptimal $S^{*}$ from $i$'s actual perspective.
 
-Therefore, truth-telling is a **dominant strategy** — it is optimal regardless of what the other sellers report. No strategy required, no equilibrium calculation, just honesty. **Allocative efficiency** follows immediately: with truth-telling, $S^*$ maximizes the true welfare. **Individual rationality** also follows, because $W(S^*; \theta) \geq W_{-i}(\theta_{-i})$ (the unrestricted max is at least as large as the restricted max), so $u_i \geq 0$.
+Therefore, truth-telling is a **dominant strategy** — it is optimal regardless of what the other sellers report. No strategy required, no equilibrium calculation, just honesty. **Allocative efficiency** follows immediately: with truth-telling, $S^{*}$ maximizes the true welfare. **Individual rationality** also follows, because $W(S^{*}; \theta) \geq W_{-i}(\theta_{-i})$ (the unrestricted max is at least as large as the restricted max), so $u_i \geq 0$.
