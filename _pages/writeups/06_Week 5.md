@@ -7,6 +7,7 @@ math: true
 # Context
 
 This week I studied the paper "Physics-grounded Mechanism Design for Spectrum Sharing between Passive and Active Users" and also simulated its results.
+
 # Introduction
 
 Passive satellites listen to extremely faint natural microwave radiation to measure things. They are spectrum freeloaders i.e. they don't transmit, but just listen. However the bands they need to listen are in demand by 5G/6G providers who want to transmit there.
@@ -22,26 +23,28 @@ Different frequencies correspond to different things:
 - **23.8 GHz** → water vapor absorption line (used to measure atmospheric water vapor, IWV)
 - **36.5 GHz** → sensitive to liquid water, wind roughening of ocean surface
 - **89.0 GHz** → cloud liquid water, precipitation
+
 The measured quantity is brightness temperature $T_b$ (in Kelvin), which is a proxy for how much thermal radiation is coming from a scene at that frequency.
 
 ## The Radiometer Equation and key physics
 
 The measurement noise, i.e. the standard deviation of the brightness-temperature measurement, is:
 
-$$\sigma_T=\frac{T_{\text{sys}}}{\sqrt{B\tau}}$$
+$$\sigma_T = \frac{T_{\mathrm{sys}}}{\sqrt{B\tau}}$$
 
 Where:
-- $T_{\text{sys}}$ = system noise temperature (a property of the hardware)
+- $T_{\mathrm{sys}}$ = system noise temperature (a property of the hardware)
 - $B$ = bandwidth you're integrating over (Hz)
 - $\tau$ = integration time (seconds)
 
 Squaring, we get the variance:
 
-$$\sigma_T^2=\frac{T_{\text{sys}}^2}{B\tau}=\frac{\kappa}{B\tau}$$
+$$\sigma_T^2 = \frac{T_{\mathrm{sys}}^2}{B\tau} = \frac{\kappa}{B\tau}$$
 
-**Why this matters?** Measurement noise decreases as one gets more bandwidth OR more time. This means bandwidth and time are fungible i.e. one second over 10MHz is the same noise reduction as 10 seconds over 1 MHz. Both give us a time-bandwidth product of $10\,\mathrm{MHz\cdot s}$
+**Why this matters?** Measurement noise decreases as one gets more bandwidth OR more time. This means bandwidth and time are fungible i.e. one second over 10MHz is the same noise reduction as 10 seconds over 1 MHz. Both give us a time-bandwidth product of $10 \, \mathrm{MHz} \cdot \mathrm{s}$
 
 The shape of this curve matters too. Since $\sigma^2 \propto 1/B$, going from $B=1$ to $B=2$ helps a lot, but going from $B=100$ to $B=101$ barely moves the needle. This is _diminishing returns_, and it shows up later as the mathematical property of submodularity that makes the whole greedy approximation tractable.
+
 ## From radiometer noise to "retrieval" error
 
 What we actually care about is rarely brightness temperature itself. We want _geophysical products_ like total water vapor amount, wind speed, or sea surface temperature. These are estimated as weighted linear combinations of brightness temperatures across channels:
@@ -60,9 +63,9 @@ For water vapor retrieval, the sensitivity vector is roughly $c_{\mathrm{IWV}} =
 
 Assuming channel noises are independent, the variance of the retrieved product is just weighted error propagation:
 
-$$\text{Var}[\hat{y}_k] = \sum_j c_{k,j}^2 \sigma_j^2 = \sum_j c_{k,j}^2 \cdot \frac{\kappa_j}{B_j \tau}$$
+$$\mathrm{Var}[\hat{y}_k] = \sum_j c_{k,j}^2 \sigma_j^2 = \sum_j c_{k,j}^2 \cdot \frac{\kappa_j}{B_j \tau}$$
 
-  **Why this matters?** Some channels are more "valuable" than others for a given product. This cross-channel weighting is the second lever the paper exploits: if 23.8 GHz tiles are expensive in an interference trap, the auction can substitute cheaper 36.5 GHz tiles, paying the price of lower sensitivity by buying more of them.
+**Why this matters?** Some channels are more "valuable" than others for a given product. This cross-channel weighting is the second lever the paper exploits: if 23.8 GHz tiles are expensive in an interference trap, the auction can substitute cheaper 36.5 GHz tiles, paying the price of lower sensitivity by buying more of them.
 
 ## Spectrum sharing and VCG Auction
 
@@ -132,7 +135,7 @@ Where:
 
 - Dividing by $\tau$ converts the accumulated Hz·s back into an equivalent averaged Hz
 
-This is where the fungibility of bandwidth and time becomes concrete. Two tiles of $(10\,\mathrm{MHz} \times 1\,\mathrm{s})$ give the same $B_j$ contribution as twenty tiles of $(1\,\mathrm{MHz} \times 1\,\mathrm{s})$. Only the spectral volume matters.
+This is where the fungibility of bandwidth and time becomes concrete. Two tiles of $(10 \, \mathrm{MHz} \times 1 \, \mathrm{s})$ give the same $B_j$ contribution as twenty tiles of $(1 \, \mathrm{MHz} \times 1 \, \mathrm{s})$. Only the spectral volume matters.
 
 ## Noise + residual interference model
 
@@ -142,31 +145,31 @@ Channel $j$ has two sources of error.
 
 $$\sigma_{j,th}^2(S) = \frac{\kappa_j}{B_j(S) \cdot \tau}$$
 
-Where $\kappa_j \propto T_{\text{sys},j}^2$ is a hardware constant.
+Where $\kappa_j \propto T_{sys,j}^2$ is a hardware constant.
 
 **Residual RFI**: even with active users complying with the emission mask $M_j$, a small amount of interference leaks through. This is modeled as a convex function in units of brightness temperature variance:
 
-$$\phi_j(M_j) = \gamma_j P_{\text{RFI},j}(M_j) + \beta_j P_{\text{RFI},j}^2(M_j) \quad [K^2]$$
+$$\phi_j(M_j) = \gamma_j P_{\mathrm{RFI},j}(M_j) + \beta_j P_{\mathrm{RFI},j}^2(M_j) \quad [K^2]$$
 
 The linear term captures the stochastic noise contribution, the quadratic term captures squared bias. Together they constitute mean squared error. The function $\phi_j$ is convex and decreasing under tighter masks.
 
 **Total channel variance**:
 
-$$\sigma_j^2\!\left(B_j(S), M_j\right) = \frac{\kappa_j}{B_j(S)\,\tau} + \phi_j(M_j)$$
+$$\sigma_j^2\left(B_j(S), M_j\right) = \frac{\kappa_j}{B_j(S) \, \tau} + \phi_j(M_j)$$
 
 ## Retrieval error propagation
 
 Plugging the channel variance into the weighted-sum retrieval and propagating error:
 
-$$\text{Var}[\hat{y}_k](S) = \sum_{j=1}^J c_{k,j}^2 \left[\frac{\kappa_j}{B_j(S) \tau} + \phi_j(M_j)\right]$$
+$$\mathrm{Var}[\hat{y}_k](S) = \sum_{j=1}^J c_{k,j}^2 \left[\frac{\kappa_j}{B_j(S) \tau} + \phi_j(M_j)\right]$$
 
 The **mission constraint** is that retrieval variance stays below a target for every product:
 
-$$\text{Var}[\hat{y}_k](S) \leq \varepsilon_k^2 \quad \forall k$$
+$$\mathrm{Var}[\hat{y}_k](S) \leq \varepsilon_k^2 \quad \forall k$$
 
-This defines the **feasible allocation set** $\mathcal{A} = \{S \subseteq \Omega : \text{Var}[\hat{y}_k](S) \leq \varepsilon_k^2 \; \forall k\}$.
+This defines the **feasible allocation set** $\mathcal{A} = \{S \subseteq \Omega : \mathrm{Var}[\hat{y}_k](S) \leq \varepsilon_k^2 \; \forall k\}$.
 
-For example, the IWV mission might require RMSE of $0.5\,\mathrm{g/m^2}$, giving $\varepsilon_{\mathrm{IWV}}^2 = 0.25$. Any allocation $S$ that achieves this is feasible; the auction picks the cheapest one.
+For example, the IWV mission might require RMSE of $0.5 \, \mathrm{g/m^2}$, giving $\varepsilon_{\mathrm{IWV}}^2 = 0.25$. Any allocation $S$ that achieves this is feasible; the auction picks the cheapest one.
 
 # The VCG Mechanism
 
@@ -176,7 +179,7 @@ The market has one buyer (the radiometer) and $N$ sellers (active users). Each s
 
 The **buyer's valuation** is endogenous to the retrieval physics. It rewards safety margin below the error threshold:
 
-$$v_0(S) = \begin{cases} \lambda_0 \sum_k w_k \big(\varepsilon_k^2 - \text{Var}[\hat{y}_k](S)\big) & \text{if } S \in \mathcal{A} \\ -\infty & \text{otherwise} \end{cases}$$
+$$v_0(S) = \begin{cases} \lambda_0 \sum_k w_k \left(\varepsilon_k^2 - \mathrm{Var}[\hat{y}_k](S)\right) & \text{if } S \in \mathcal{A} \\ -\infty & \text{otherwise} \end{cases}$$
 
 The $-\infty$ outside $\mathcal{A}$ is a hard mission constraint: no infeasible allocation is ever chosen. The $\lambda_0$ converts variance reduction to dollars, and $w_k$ are relative weights across products.
 
@@ -204,17 +207,18 @@ Basically, maximize scientific value minus total cost over all allocations that 
 
 The payment to seller $i$ follows the **Clarke pivot rule**, adapted for procurement:
 
-$$p_i(\hat{\theta}) = \hat{C}_i(S_i^*) + \left[ W(S^*;\hat{\theta}) - W_{-i}\!\left(S_{-i}^*;\hat{\theta}_{-i}\right) \right]$$
+$$p_i(\hat{\theta}) = \hat{C}_i(S_i^*) + \left[ W(S^*;\hat{\theta}) - W_{-i}\left(S_{-i}^*;\hat{\theta}_{-i}\right) \right]$$
 
 Where
 
-$$W_{-i}\!\left(S_{-i}^*\right) = \max_{S' \in \mathcal{A}_{-i}} \left[ v_0(S') - \sum_{j \neq i} \hat{C}_j\!\left(S'_j\right) \right]$$
+$$W_{-i}\left(S_{-i}^*\right) = \max_{S' \in \mathcal{A}_{-i}} \left[ v_0(S') - \sum_{j \neq i} \hat{C}_j\left(S'_j\right) \right]$$
 
 is the maximum welfare achievable if seller $i$ were absent.
 
-The first term reimburses the seller's reported cost. The second term, the **information rent** is the externality seller $i$ imposes on the rest of the economy by being present. If seller $i$'s presence makes the world better by \$X for everyone else, $i$ pockets $X above their cost.
+The first term reimburses the seller's reported cost. The second term, the **information rent** is the externality seller $i$ imposes on the rest of the economy by being present. If seller $i$'s presence makes the world better by \$X for everyone else, $i$ pockets \$X above their cost.
 
 The non-pivotal assumption guarantees $W_{-i}$ is finite, so the payment is well-defined.
+
 ## Why does this induce truth-telling? (DSIC proof sketch)
 
 The crown jewel of VCG. Seller $i$'s utility under any reported cost $\hat{C}_i$ is payment minus _true_ cost:
@@ -223,7 +227,7 @@ $$u_i = p_i - C_i(S_i^*)$$
 
 Substituting the payment rule:
 
-$$u_i = \left[ \hat{C}_i\!\left(S_i^*\right) - C_i\!\left(S_i^*\right) \right] + W\!\left(S^*;\hat{\theta}\right) - W_{-i}\!\left(\hat{\theta}_{-i}\right)$$
+$$u_i = \left[ \hat{C}_i\left(S_i^*\right) - C_i\left(S_i^*\right) \right] + W\left(S^*;\hat{\theta}\right) - W_{-i}\left(\hat{\theta}_{-i}\right)$$
 
 Under truth-telling ($\hat{C}_i = C_i$), the first bracket vanishes:
 
