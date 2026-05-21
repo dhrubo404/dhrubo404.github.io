@@ -30,11 +30,7 @@ The measured quantity is brightness temperature $T_b$ (in Kelvin), which is a pr
 
 The measurement noise, i.e. the standard deviation of the brightness-temperature measurement, is:
 
-<div>
-$$
-\sigma_T = \frac{T_{\mathrm{sys}}}{\sqrt{B\tau}}
-$$
-</div>
+$$\sigma_T = \frac{T_{\mathrm{sys}}}{\sqrt{B\tau}}$$
 
 Where:
 - $T_{\mathrm{sys}}$ = system noise temperature (a property of the hardware)
@@ -43,11 +39,7 @@ Where:
 
 Squaring, we get the variance:
 
-<div>
-$$
-\sigma_T^2 = \frac{T_{\mathrm{sys}}^2}{B\tau} = \frac{\kappa}{B\tau}
-$$
-</div>
+$$\sigma_T^2 = \frac{T_{\mathrm{sys}}^2}{B\tau} = \frac{\kappa}{B\tau}$$
 
 **Why this matters?** Measurement noise decreases as one gets more bandwidth OR more time. This means bandwidth and time are fungible i.e. one second over 10MHz is the same noise reduction as 10 seconds over 1 MHz. Both give us a time-bandwidth product of $10 \, \mathrm{MHz} \cdot \mathrm{s}$
 
@@ -71,7 +63,7 @@ For water vapor retrieval, the sensitivity vector is roughly $c_{\mathrm{IWV}} =
 
 Assuming channel noises are independent, the variance of the retrieved product is just weighted error propagation:
 
-$$\mathrm{Var}[\hat{y}_k] = \sum_j c_{k,j}^2 \sigma_j^2 = \sum_j c_{k,j}^2 \cdot \frac{\kappa_j}{B_j \tau}$$
+$$\mathrm{Var}\lbrack\hat{y}_k\rbrack = \sum_j c_{k,j}^2 \sigma_j^2 = \sum_j c_{k,j}^2 \cdot \frac{\kappa_j}{B_j \tau}$$
 
 **Why this matters?** Some channels are more "valuable" than others for a given product. This cross-channel weighting is the second lever the paper exploits: if 23.8 GHz tiles are expensive in an interference trap, the auction can substitute cheaper 36.5 GHz tiles, paying the price of lower sensitivity by buying more of them.
 
@@ -95,11 +87,7 @@ The mechanism that clears this market is a **Vickrey-Clarke-Groves (VCG) reverse
 
 Here it's a _reverse_ auction (procurement): the satellite is the buyer, active users are the sellers offering silence. Seller $i$'s payment is:
 
-<div>
-$$
-p_i = \underbrace{C_i(S_{i}^{\ast})}_{\text{cost reimbursed}} + \underbrace{\left[ W(S^{\ast}) - W_{-i}(S^{\ast}_{-i}) \right]}_{\text{information rent}}
-$$
-</div>
+$$p_i = \underbrace{C_i(S_{i}^{\ast})}_{\text{cost reimbursed}} + \underbrace{\left[ W(S^{\ast}) - W_{-i}(S^{\ast}_{-i}) \right]}_{\text{information rent}}$$
 
 The information rent term answers: how much better off is the rest of the world because seller $i$ exists?
 
@@ -107,11 +95,7 @@ The information rent term answers: how much better off is the rest of the world 
 
 A set function $F : 2^\Omega \to \mathbb{R}$ is **submodular** if for any nested sets $A \subseteq Q$ and any new element $z \notin Q$:
 
-<div>
-$$
-F(A \cup \{z\}) - F(A) \geq F(Q \cup \{z\}) - F(Q)
-$$
-</div>
+$$F(A \cup \{z\}) - F(A) \geq F(Q \cup \{z\}) - F(Q)$$
 
 In words: adding $z$ to a smaller set gives at least as much benefit as adding it to a larger set. This is diminishing returns expressed as a set-function property.
 
@@ -141,11 +125,7 @@ Active users (sellers) control the tiles. A tile is "quiet" if its controlling s
 
 For a chosen quiet set $S \subseteq \Omega$, the **effective clean bandwidth** in channel $j$ is:
 
-<div>
-$$
-B_j(S) = B_j^{(0)} + \frac{1}{\tau} \sum_{\substack{x \in S \\ j(x) = j}} \alpha_x \cdot \delta t_x \cdot \delta f_x
-$$
-</div>
+$$B_j(S) = B_j^{(0)} + \frac{1}{\tau} \sum_{\substack{x \in S \\ j(x) = j}} \alpha_x \cdot \delta t_x \cdot \delta f_x$$
 
 Where:
 
@@ -163,51 +143,31 @@ Channel $j$ has two sources of error.
 
 **Thermal noise** from the radiometer equation:
 
-<div>
-$$
-\sigma_{j,th}^2(S) = \frac{\kappa_j}{B_j(S) \cdot \tau}
-$$
-</div>
+$$\sigma_{j,th}^2(S) = \frac{\kappa_j}{B_j(S) \cdot \tau}$$
 
 Where $\kappa_j \propto T_{sys,j}^2$ is a hardware constant.
 
 **Residual RFI**: even with active users complying with the emission mask $M_j$, a small amount of interference leaks through. This is modeled as a convex function in units of brightness temperature variance:
 
-<div>
-$$
-\phi_j(M_j) = \gamma_j P_{\mathrm{RFI},j}(M_j) + \beta_j P_{\mathrm{RFI},j}^2(M_j) \quad [K^2]
-$$
-</div>
+$$\phi_j(M_j) = \gamma_j P_{\mathrm{RFI},j}(M_j) + \beta_j P_{\mathrm{RFI},j}^2(M_j) \quad [K^2]$$
 
 The linear term captures the stochastic noise contribution, the quadratic term captures squared bias. Together they constitute mean squared error. The function $\phi_j$ is convex and decreasing under tighter masks.
 
 **Total channel variance**:
 
-<div>
-$$
-\sigma_j^2\left(B_j(S), M_j\right) = \frac{\kappa_j}{B_j(S) \, \tau} + \phi_j(M_j)
-$$
-</div>
+$$\sigma_j^2\left(B_j(S), M_j\right) = \frac{\kappa_j}{B_j(S) \, \tau} + \phi_j(M_j)$$
 
 ## Retrieval error propagation
 
 Plugging the channel variance into the weighted-sum retrieval and propagating error:
 
-<div>
-$$
-\mathrm{Var}[\hat{y}_k](S) = \sum_{j=1}^J c_{k,j}^2 \left[\frac{\kappa_j}{B_j(S) \tau} + \phi_j(M_j)\right]
-$$
-</div>
+$$\mathrm{Var}\lbrack\hat{y}_k\rbrack(S) = \sum_{j=1}^J c_{k,j}^2 \left[\frac{\kappa_j}{B_j(S) \tau} + \phi_j(M_j)\right]$$
 
 The **mission constraint** is that retrieval variance stays below a target for every product:
 
-<div>
-$$
-\mathrm{Var}[\hat{y}_k](S) \leq \varepsilon_k^2 \quad \forall k
-$$
-</div>
+$$\mathrm{Var}\lbrack\hat{y}_k\rbrack(S) \leq \varepsilon_k^2 \quad \forall k$$
 
-This defines the **feasible allocation set** $\mathcal{A} = \lbrace S \subseteq \Omega : \mathrm{Var}[\hat{y}_k](S) \leq \varepsilon_k^2 \; \forall k \rbrace$.
+This defines the **feasible allocation set** $\mathcal{A} = \lbrace S \subseteq \Omega : \mathrm{Var}\lbrack\hat{y}_k\rbrack(S) \leq \varepsilon_k^2 \; \forall k \rbrace$.
 
 For example, the IWV mission might require RMSE of $0.5 \, \mathrm{g/m^2}$, giving $\varepsilon_{\mathrm{IWV}}^2 = 0.25$. Any allocation $S$ that achieves this is feasible; the auction picks the cheapest one.
 
@@ -219,11 +179,7 @@ The market has one buyer (the radiometer) and $N$ sellers (active users). Each s
 
 The **buyer's valuation** is endogenous to the retrieval physics. It rewards safety margin below the error threshold:
 
-<div>
-$$
-v_0(S) = \lambda_0 \sum_k w_k \left(\varepsilon_k^2 - \mathrm{Var}[\hat{y}_k](S)\right) \quad \text{if } S \in \mathcal{A}
-$$
-</div>
+$$v_0(S) = \lambda_0 \sum_k w_k \left(\varepsilon_k^2 - \mathrm{Var}\lbrack\hat{y}_k\rbrack(S)\right) \quad \text{if } S \in \mathcal{A}$$
 
 and $v_0(S) = -\infty$ otherwise.
 
@@ -231,19 +187,11 @@ The $-\infty$ outside $\mathcal{A}$ is a hard mission constraint: no infeasible 
 
 The **seller cost** is private. Each seller has a non-decreasing cost function $C_i(S_i; \theta_i)$ with $C_i(\emptyset) = 0$, where $\theta_i$ is their private type (traffic load, QoS priority, etc.). The seller valuation is just the negative cost:
 
-<div>
-$$
-v_i(S; \theta_i) = -C_i(S \cap \Omega_i; \theta_i)
-$$
-</div>
+$$v_i(S; \theta_i) = -C_i(S \cap \Omega_i; \theta_i)$$
 
 The **social welfare** is buyer utility minus aggregate seller cost:
 
-<div>
-$$
-W(S; \theta) = v_0(S) + \sum_{i=1}^N v_i(S; \theta_i) = v_0(S) - \sum_{i=1}^N C_i(S_i; \theta_i)
-$$
-</div>
+$$W(S; \theta) = v_0(S) + \sum_{i=1}^N v_i(S; \theta_i) = v_0(S) - \sum_{i=1}^N C_i(S_i; \theta_i)$$
 
 For infeasible $S$, $W = -\infty$.
 
@@ -253,11 +201,7 @@ The paper also makes a **non-pivotal feasibility assumption**: no single seller 
 
 The mechanism picks the feasible allocation that maximizes reported social welfare:
 
-<div>
-$$
-S^{\ast}(\hat{\theta}) \in \arg\max_{S \in \mathcal{A}} \left[ v_0(S) - \sum_{i=1}^{N} \hat{C}_i(S_i) \right]
-$$
-</div>
+$$S^{\ast}(\hat{\theta}) \in \arg\max_{S \in \mathcal{A}} \left[ v_0(S) - \sum_{i=1}^{N} \hat{C}_i(S_i) \right]$$
 
 Basically, maximize scientific value minus total cost over all allocations that meet the mission constraint.
 
@@ -265,19 +209,11 @@ Basically, maximize scientific value minus total cost over all allocations that 
 
 The payment to seller $i$ follows the **Clarke pivot rule**, adapted for procurement:
 
-<div>
-$$
-p_i(\hat{\theta}) = \hat{C}_i(S_{i}^{\ast}) + \left[ W(S^{\ast};\hat{\theta}) - W_{-i}\left(S_{-i}^{\ast};\hat{\theta}_{-i}\right) \right]
-$$
-</div>
+$$p_i(\hat{\theta}) = \hat{C}_i(S_{i}^{\ast}) + \left[ W(S^{\ast};\hat{\theta}) - W_{-i}\left(S_{-i}^{\ast};\hat{\theta}_{-i}\right) \right]$$
 
 Where
 
-<div>
-$$
-W_{-i}\left(S_{-i}^{\ast}\right) = \max_{S' \in \mathcal{A}_{-i}} \left[ v_0(S') - \sum_{j \neq i} \hat{C}_j\left(S'_j\right) \right]
-$$
-</div>
+$$W_{-i}\left(S_{-i}^{\ast}\right) = \max_{S' \in \mathcal{A}_{-i}} \left[ v_0(S') - \sum_{j \neq i} \hat{C}_j\left(S'_j\right) \right]$$
 
 is the maximum welfare achievable if seller $i$ were absent.
 
@@ -289,27 +225,15 @@ The non-pivotal assumption guarantees $W_{-i}$ is finite, so the payment is well
 
 The crown jewel of VCG. Seller $i$'s utility under any reported cost $\hat{C}_i$ is payment minus _true_ cost:
 
-<div>
-$$
-u_i = p_i - C_i(S_{i}^{\ast})
-$$
-</div>
+$$u_i = p_i - C_i(S_{i}^{\ast})$$
 
 Substituting the payment rule:
 
-<div>
-$$
-u_i = \left[ \hat{C}_i\left(S_{i}^{\ast}\right) - C_i\left(S_{i}^{\ast}\right) \right] + W\left(S^{\ast};\hat{\theta}\right) - W_{-i}\left(\hat{\theta}_{-i}\right)
-$$
-</div>
+$$u_i = \left[ \hat{C}_i\left(S_{i}^{\ast}\right) - C_i\left(S_{i}^{\ast}\right) \right] + W\left(S^{\ast};\hat{\theta}\right) - W_{-i}\left(\hat{\theta}_{-i}\right)$$
 
 Under truth-telling ($\hat{C}_i = C_i$), the first bracket vanishes:
 
-<div>
-$$
-u_i^{\text{truth}} = W(S^{\ast}; \theta_i, \hat{\theta}_{-i}) - W_{-i}(\hat{\theta}_{-i})
-$$
-</div>
+$$u_i^{\text{truth}} = W(S^{\ast}; \theta_i, \hat{\theta}_{-i}) - W_{-i}(\hat{\theta}_{-i})$$
 
 **The key observation**: $W_{-i}(\hat{\theta}_{-i})$ depends only on _other sellers'_ reports. It is a constant from seller $i$'s perspective — independent of what $i$ does.
 
