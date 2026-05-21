@@ -82,7 +82,12 @@ The mechanism that clears this market is a **Vickrey-Clarke-Groves (VCG) reverse
 
 Here it's a _reverse_ auction (procurement): the satellite is the buyer, active users are the sellers offering silence. Seller $i$'s payment is:
 
-$$p_i = \underbrace{C_i(S_i^*)}_{\text{cost reimbursed}} + \underbrace{[W(S^*) - W_{-i}(S^*_{-i})]}_{\text{information rent}}$$
+\[
+p_i =
+\underbrace{C_i(S_i^*)}_{\text{cost reimbursed}}
++
+\underbrace{\left[ W(S^*) - W_{-i}(S^*_{-i}) \right]}_{\text{information rent}}
+\]
 
 The information rent term answers: how much better off is the rest of the world because seller $i$ exists?
 
@@ -94,7 +99,11 @@ The information rent term answers: how much better off is the rest of the world 
 
 A set function $F : 2^\Omega \to \mathbb{R}$ is **submodular** if for any nested sets $A \subseteq Q$ and any new element $z \notin Q$:
 
-$$F(A \cup \{z\}) - F(A) \geq F(Q \cup \{z\}) - F(Q)$$
+\[
+F(A \cup \{z\}) - F(A)
+\geq
+F(Q \cup \{z\}) - F(Q)
+\]
 
   
 
@@ -139,8 +148,15 @@ Active users (sellers) control the tiles. A tile is "quiet" if its controlling s
   
 
 For a chosen quiet set $S \subseteq \Omega$, the **effective clean bandwidth** in channel $j$ is:
-
-$$B_j(S) = B_j^{(0)} + \frac{1}{\tau} \sum_{\substack{x \in S \\ j(x) = j}} \alpha_x \cdot \delta t_x \cdot \delta f_x$$
+\[
+B_j(S)
+=
+B_j^{(0)}
++
+\frac{1}{\tau}
+\sum_{\substack{x \in S \\ j(x) = j}}
+\alpha_x \cdot \delta t_x \cdot \delta f_x
+\]
 
   
 
@@ -177,7 +193,14 @@ The linear term captures the stochastic noise contribution, the quadratic term c
 
 **Total channel variance**:
 
-$$\sigma_j^2 \big(B_j(S), M_j\big) = \frac{\kappa_j}{B_j(S) \tau} + \phi_j(M_j)$$
+\[
+\sigma_j^2\!\left(B_j(S), M_j\right)
+=
+\frac{\kappa_j}{B_j(S)\,\tau}
++
+\phi_j(M_j)
+\]
+
 ## Retrieval error propagation
 
   
@@ -237,8 +260,17 @@ The paper also makes a **non-pivotal feasibility assumption**: no single seller 
 
 The mechanism picks the feasible allocation that maximizes reported social welfare:
 
-$$S^*(\hat{\theta}) \in \arg\max_{S \in \mathcal{A}} \left[v_0(S) - \sum_{i=1}^N \hat{C}_i(S_i)\right]$$
-
+\[
+S^*(\hat{\theta})
+\in
+\arg\max_{S \in \mathcal{A}}
+\left[
+v_0(S)
+-
+\sum_{i=1}^{N}
+\hat{C}_i(S_i)
+\right]
+\]
   
 
 Basically, maximize scientific value minus total cost over all allocations that meet the mission constraint.
@@ -250,9 +282,29 @@ Basically, maximize scientific value minus total cost over all allocations that 
 
 The payment to seller $i$ follows the **Clarke pivot rule**, adapted for procurement:
 
-$$p_i(\hat{\theta}) = \hat{C}_i(S_i^*) + \big[W(S^*; \hat{\theta}) - W_{-i}(S^*_{-i}; \hat{\theta}_{-i})\big]$$
+\[
+p_i(\hat{\theta})
+=
+\hat{C}_i(S_i^*)
++
+\left[
+W(S^*;\hat{\theta})
+-
+W_{-i}\!\left(S_{-i}^*;\hat{\theta}_{-i}\right)
+\right]
+\]
 
-Where $W_{-i}(S^*_{-i}) = \max_{S' \in \mathcal{A}_{-i}}\big[v_0(S') - \sum_{j \neq i} \hat{C}_j(S'_j)\big]$ is the maximum welfare achievable if seller $i$ were absent.
+Where \[
+W_{-i}\!\left(S_{-i}^*\right)
+=
+\max_{S' \in \mathcal{A}_{-i}}
+\left[
+v_0(S')
+-
+\sum_{j \neq i}
+\hat{C}_j\!\left(S'_j\right)
+\right]
+\] is the maximum welfare achievable if seller $i$ were absent.
 
 
 The first term reimburses the seller's reported cost. The second term, the **information rent** is the externality seller $i$ imposes on the rest of the economy by being present. If seller $i$'s presence makes the world better by $X for everyone else, $i$ pockets $X above their cost.
@@ -268,7 +320,19 @@ $$u_i = p_i - C_i(S_i^*)$$
 
 Substituting the payment rule:
 
-$$u_i = \big[\hat{C}_i(S_i^*) - C_i(S_i^*)\big] + W(S^*; \hat{\theta}) - W_{-i}(\hat{\theta}_{-i})$$
+\[
+u_i
+=
+\left[
+\hat{C}_i\!\left(S_i^*\right)
+-
+C_i\!\left(S_i^*\right)
+\right]
++
+W\!\left(S^*;\hat{\theta}\right)
+-
+W_{-i}\!\left(\hat{\theta}_{-i}\right)
+\]
 
   
 
