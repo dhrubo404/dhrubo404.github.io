@@ -105,7 +105,7 @@ Here it's a _reverse_ auction (procurement): the satellite is the buyer, active 
 
 <div>
 $$
-p_i = \underbrace{C_i(S_{i}^{*})}_{\text{cost reimbursed}} + \underbrace{\left[ W(S^{*}) - W_{-i}(S^{*}_{-i}) \right]}_{\text{information rent}}
+p_i = \underbrace{C_i(S_{i}^{\ast})}_{\text{cost reimbursed}} + \underbrace{\left[ W(S^{\ast}) - W_{-i}(S^{\ast}_{-i}) \right]}_{\text{information rent}}
 $$
 </div>
 
@@ -261,7 +261,7 @@ The mechanism picks the feasible allocation that maximizes reported social welfa
 
 <div>
 $$
-S^{*}(\hat{\theta}) \in \arg\max_{S \in \mathcal{A}} \left[ v_0(S) - \sum_{i=1}^{N} \hat{C}_i(S_i) \right]
+S^{\ast}(\hat{\theta}) \in \arg\max_{S \in \mathcal{A}} \left[ v_0(S) - \sum_{i=1}^{N} \hat{C}_i(S_i) \right]
 $$
 </div>
 
@@ -273,7 +273,7 @@ The payment to seller $i$ follows the **Clarke pivot rule**, adapted for procure
 
 <div>
 $$
-p_i(\hat{\theta}) = \hat{C}_i(S_{i}^{*}) + \left[ W(S^{*};\hat{\theta}) - W_{-i}\left(S_{-i}^{*};\hat{\theta}_{-i}\right) \right]
+p_i(\hat{\theta}) = \hat{C}_i(S_{i}^{\ast}) + \left[ W(S^{\ast};\hat{\theta}) - W_{-i}\left(S_{-i}^{\ast};\hat{\theta}_{-i}\right) \right]
 $$
 </div>
 
@@ -281,7 +281,7 @@ Where
 
 <div>
 $$
-W_{-i}\left(S_{-i}^{*}\right) = \max_{S' \in \mathcal{A}_{-i}} \left[ v_0(S') - \sum_{j \neq i} \hat{C}_j\left(S'_j\right) \right]
+W_{-i}\left(S_{-i}^{\ast}\right) = \max_{S' \in \mathcal{A}_{-i}} \left[ v_0(S') - \sum_{j \neq i} \hat{C}_j\left(S'_j\right) \right]
 $$
 </div>
 
@@ -297,7 +297,7 @@ The crown jewel of VCG. Seller $i$'s utility under any reported cost $\hat{C}_i$
 
 <div>
 $$
-u_i = p_i - C_i(S_{i}^{*})
+u_i = p_i - C_i(S_{i}^{\ast})
 $$
 </div>
 
@@ -305,7 +305,7 @@ Substituting the payment rule:
 
 <div>
 $$
-u_i = \left[ \hat{C}_i\left(S_{i}^{*}\right) - C_i\left(S_{i}^{*}\right) \right] + W\left(S^{*};\hat{\theta}\right) - W_{-i}\left(\hat{\theta}_{-i}\right)
+u_i = \left[ \hat{C}_i\left(S_{i}^{\ast}\right) - C_i\left(S_{i}^{\ast}\right) \right] + W\left(S^{\ast};\hat{\theta}\right) - W_{-i}\left(\hat{\theta}_{-i}\right)
 $$
 </div>
 
@@ -313,12 +313,12 @@ Under truth-telling ($\hat{C}_i = C_i$), the first bracket vanishes:
 
 <div>
 $$
-u_i^{\text{truth}} = W(S^{*}; \theta_i, \hat{\theta}_{-i}) - W_{-i}(\hat{\theta}_{-i})
+u_i^{\text{truth}} = W(S^{\ast}; \theta_i, \hat{\theta}_{-i}) - W_{-i}(\hat{\theta}_{-i})
 $$
 </div>
 
 **The key observation**: $W_{-i}(\hat{\theta}_{-i})$ depends only on _other sellers'_ reports. It is a constant from seller $i$'s perspective — independent of what $i$ does.
 
-So to maximize $u_i$, seller $i$ must maximize $W(S^{*}; \theta_i, \hat{\theta}_{-i})$. But the mechanism _already_ picks $S^{*}$ to maximize reported welfare. If $i$ reports truthfully, the mechanism's objective is exactly $i$'s true welfare contribution. Any lie distorts the mechanism into picking a suboptimal $S^{*}$ from $i$'s actual perspective.
+So to maximize $u_i$, seller $i$ must maximize $W(S^{\ast}; \theta_i, \hat{\theta}_{-i})$. But the mechanism _already_ picks $S^{\ast}$ to maximize reported welfare. If $i$ reports truthfully, the mechanism's objective is exactly $i$'s true welfare contribution. Any lie distorts the mechanism into picking a suboptimal $S^{\ast}$ from $i$'s actual perspective.
 
-Therefore, truth-telling is a **dominant strategy** — it is optimal regardless of what the other sellers report. No strategy required, no equilibrium calculation, just honesty. **Allocative efficiency** follows immediately: with truth-telling, $S^{*}$ maximizes the true welfare. **Individual rationality** also follows, because $W(S^{*}; \theta) \geq W_{-i}(\theta_{-i})$ (the unrestricted max is at least as large as the restricted max), so $u_i \geq 0$.
+Therefore, truth-telling is a **dominant strategy** — it is optimal regardless of what the other sellers report. No strategy required, no equilibrium calculation, just honesty. **Allocative efficiency** follows immediately: with truth-telling, $S^{\ast}$ maximizes the true welfare. **Individual rationality** also follows, because $W(S^{\ast}; \theta) \geq W_{-i}(\theta_{-i})$ (the unrestricted max is at least as large as the restricted max), so $u_i \geq 0$.
