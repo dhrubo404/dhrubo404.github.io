@@ -41,7 +41,7 @@ Squaring, we get the variance:
 
 $$\sigma_T^2 = \frac{T_{\mathrm{sys}}^2}{B\tau} = \frac{\kappa}{B\tau}$$
 
-**Why this matters?** Measurement noise decreases as one gets more bandwidth OR more time. This means bandwidth and time are fungible i.e. one second over 10MHz is the same noise reduction as 10 seconds over 1 MHz. Both give us a time-bandwidth product of $10 \\, \mathrm{MHz} \cdot \mathrm{s}$
+**Why this matters?** Measurement noise decreases as one gets more bandwidth OR more time. This means bandwidth and time are fungible i.e. one second over 10MHz is the same noise reduction as 10 seconds over 1 MHz. Both give us a time-bandwidth product of $10 \, \mathrm{MHz} \cdot \mathrm{s}$
 
 The shape of this curve matters too. Since $\sigma^2 \propto 1/B$, going from $B=1$ to $B=2$ helps a lot, but going from $B=100$ to $B=101$ barely moves the needle. This is _diminishing returns_, and it shows up later as the mathematical property of submodularity that makes the whole greedy approximation tractable.
 
@@ -85,48 +85,31 @@ The mechanism that clears this market is a **Vickrey-Clarke-Groves (VCG) reverse
 
 3. **Individual rationality**: no participant is worse off by joining than by staying out.
 
-
 Here it's a _reverse_ auction (procurement): the satellite is the buyer, active users are the sellers offering silence. Seller $i$'s payment is:
 
 $$p_i = \underbrace{C_i(S_i^*)}_{\text{cost reimbursed}} + \underbrace{\left[ W(S^*) - W_{-i}(S^*_{-i}) \right]}_{\text{information rent}}$$
 
 The information rent term answers: how much better off is the rest of the world because seller $i$ exists?
 
-
-
 ## Submodularity - diminishing returns as a math property
-
-
 
 A set function $F : 2^\Omega \to \mathbb{R}$ is **submodular** if for any nested sets $A \subseteq Q$ and any new element $z \notin Q$:
 
-$$F(A \cup \\{z\\}) - F(A) \geq F(Q \cup \\{z\\}) - F(Q)$$
-
-
+$$F(A \cup \{z\}) - F(A) \geq F(Q \cup \{z\}) - F(Q)$$
 
 In words: adding $z$ to a smaller set gives at least as much benefit as adding it to a larger set. This is diminishing returns expressed as a set-function property.
 
-
-
 **Why this matters?** Submodularity is a magic word in combinatorial optimization. Greedy algorithms give provably near-optimal results for submodular objectives:
 
-- For **maximization** under a cardinality constraint, greedy achieves $(1-1/e) \approx 63\\%$ of optimal (Nemhauser-Wolsey-Fisher 1978).
+- For **maximization** under a cardinality constraint, greedy achieves $(1-1/e) \approx 63\%$ of optimal (Nemhauser-Wolsey-Fisher 1978).
 
 - For **covering** (the case in this paper — cover a target utility at minimum cost), greedy is within a logarithmic factor (Wolsey 1982).
 
-
-
 This is what rescues the paper from solving an NP-hard combinatorial auction exactly. The radiometer equation gives $\sigma^2 \propto 1/B$, which is convex in $B$. Convexity of $1/x$ produces submodularity of the variance-reduction set function. Submodularity gives the greedy approximation bound. Each step is forced by the previous one. The physics hands the economics exactly the structure it needs.
-
-
 
 # Physics Model
 
-
-
 ## Setting up the tile grid
-
-
 
 During one overpass of duration $\tau$, the time–frequency plane is discretized into a finite set of non-overlapping tiles $\Omega$. Each tile $x \in \Omega$ has:
 
@@ -136,19 +119,13 @@ During one overpass of duration $\tau$, the time–frequency plane is discretize
 
 - $\alpha_x \in [0,1]$ = duty cycle, i.e. the fraction of the tile's duration that is actually quiet
 
-- $j(x) \in \\{1, \dots, J\\}$ = which radiometer channel the tile belongs to
-
-
+- $j(x) \in \{1, \dots, J\}$ = which radiometer channel the tile belongs to
 
 Active users (sellers) control the tiles. A tile is "quiet" if its controlling seller mutes emissions to satisfy a prescribed interference mask $M_{j(x)}$ for duty cycle $\alpha_x$.
 
-
-
 For a chosen quiet set $S \subseteq \Omega$, the **effective clean bandwidth** in channel $j$ is:
 
-$$B_j(S) = B_j^{(0)} + \frac{1}{\tau} \sum_{\substack{x \in S \\\\ j(x) = j}} \alpha_x \cdot \delta t_x \cdot \delta f_x$$
-
-
+$$B_j(S) = B_j^{(0)} + \frac{1}{\tau} \sum_{\substack{x \in S \\ j(x) = j}} \alpha_x \cdot \delta t_x \cdot \delta f_x$$
 
 Where:
 
@@ -158,15 +135,9 @@ Where:
 
 - Dividing by $\tau$ converts the accumulated Hz·s back into an equivalent averaged Hz
 
-
-
-This is where the fungibility of bandwidth and time becomes concrete. Two tiles of $(10 \\, \mathrm{MHz} \times 1 \\, \mathrm{s})$ give the same $B_j$ contribution as twenty tiles of $(1 \\, \mathrm{MHz} \times 1 \\, \mathrm{s})$. Only the spectral volume matters.
-
-
+This is where the fungibility of bandwidth and time becomes concrete. Two tiles of $(10 \, \mathrm{MHz} \times 1 \, \mathrm{s})$ give the same $B_j$ contribution as twenty tiles of $(1 \, \mathrm{MHz} \times 1 \, \mathrm{s})$. Only the spectral volume matters.
 
 ## Noise + residual interference model
-
-
 
 Channel $j$ has two sources of error.
 
@@ -184,11 +155,9 @@ The linear term captures the stochastic noise contribution, the quadratic term c
 
 **Total channel variance**:
 
-$$\sigma_j^2\left(B_j(S), M_j\right) = \frac{\kappa_j}{B_j(S) \\, \tau} + \phi_j(M_j)$$
+$$\sigma_j^2\left(B_j(S), M_j\right) = \frac{\kappa_j}{B_j(S) \, \tau} + \phi_j(M_j)$$
 
 ## Retrieval error propagation
-
-
 
 Plugging the channel variance into the weighted-sum retrieval and propagating error:
 
@@ -198,35 +167,25 @@ The **mission constraint** is that retrieval variance stays below a target for e
 
 $$\mathrm{Var}[\hat{y}_k](S) \leq \varepsilon_k^2 \quad \forall k$$
 
+This defines the **feasible allocation set** $\mathcal{A} = \{S \subseteq \Omega : \mathrm{Var}[\hat{y}_k](S) \leq \varepsilon_k^2 \; \forall k\}$.
 
-
-This defines the **feasible allocation set** $\mathcal{A} = \\{S \subseteq \Omega : \mathrm{Var}[\hat{y}_k](S) \leq \varepsilon_k^2 \\; \forall k\\}$.
-
-
-
-For example, the IWV mission might require RMSE of $0.5 \\, \mathrm{g/m^2}$, giving $\varepsilon_{\mathrm{IWV}}^2 = 0.25$. Any allocation $S$ that achieves this is feasible; the auction picks the cheapest one.
-
+For example, the IWV mission might require RMSE of $0.5 \, \mathrm{g/m^2}$, giving $\varepsilon_{\mathrm{IWV}}^2 = 0.25$. Any allocation $S$ that achieves this is feasible; the auction picks the cheapest one.
 
 # The VCG Mechanism
 
 ## Social Welfare
 
-
-
 The market has one buyer (the radiometer) and $N$ sellers (active users). Each seller $i$ controls a portfolio of tiles $\Omega_i \subset \Omega$. For any global allocation $S$, the local contribution of seller $i$ is $S_i = S \cap \Omega_i$.
-
 
 The **buyer's valuation** is endogenous to the retrieval physics. It rewards safety margin below the error threshold:
 
-$$v_0(S) = \begin{cases} \lambda_0 \sum_k w_k \left(\varepsilon_k^2 - \mathrm{Var}[\hat{y}_k](S)\right) & \text{if } S \in \mathcal{A} \\\\ -\infty & \text{otherwise} \end{cases}$$
+$$v_0(S) = \begin{cases} \lambda_0 \sum_k w_k \left(\varepsilon_k^2 - \mathrm{Var}[\hat{y}_k](S)\right) & \text{if } S \in \mathcal{A} \\ -\infty & \text{otherwise} \end{cases}$$
 
 The $-\infty$ outside $\mathcal{A}$ is a hard mission constraint: no infeasible allocation is ever chosen. The $\lambda_0$ converts variance reduction to dollars, and $w_k$ are relative weights across products.
-
 
 The **seller cost** is private. Each seller has a non-decreasing cost function $C_i(S_i; \theta_i)$ with $C_i(\emptyset) = 0$, where $\theta_i$ is their private type (traffic load, QoS priority, etc.). The seller valuation is just the negative cost:
 
 $$v_i(S; \theta_i) = -C_i(S \cap \Omega_i; \theta_i)$$
-
 
 The **social welfare** is buyer utility minus aggregate seller cost:
 
@@ -234,27 +193,17 @@ $$W(S; \theta) = v_0(S) + \sum_{i=1}^N v_i(S; \theta_i) = v_0(S) - \sum_{i=1}^N 
 
 For infeasible $S$, $W = -\infty$.
 
-
-The paper also makes a **non-pivotal feasibility assumption**: no single seller is essential. For any $i$, the restricted feasible set $\mathcal{A}_{-i} = \\{S \in \mathcal{A} : S_i = \emptyset\\}$ is non-empty. This guarantees that pivot payments are finite.
-
-
+The paper also makes a **non-pivotal feasibility assumption**: no single seller is essential. For any $i$, the restricted feasible set $\mathcal{A}_{-i} = \{S \in \mathcal{A} : S_i = \emptyset\}$ is non-empty. This guarantees that pivot payments are finite.
 
 ## Allocation Rule
-
-
 
 The mechanism picks the feasible allocation that maximizes reported social welfare:
 
 $$S^*(\hat{\theta}) \in \arg\max_{S \in \mathcal{A}} \left[ v_0(S) - \sum_{i=1}^{N} \hat{C}_i(S_i) \right]$$
 
-
-
 Basically, maximize scientific value minus total cost over all allocations that meet the mission constraint.
 
-
-
 ## Payment Rule
-
 
 The payment to seller $i$ follows the **Clarke pivot rule**, adapted for procurement:
 
@@ -266,10 +215,7 @@ $$W_{-i}\left(S_{-i}^*\right) = \max_{S' \in \mathcal{A}_{-i}} \left[ v_0(S') - 
 
 is the maximum welfare achievable if seller $i$ were absent.
 
-
-The first term reimburses the seller's reported cost. The second term, the **information rent** is the externality seller $i$ imposes on the rest of the economy by being present. If seller $i$'s presence makes the world better by \$X for everyone else, $i$ pockets $X above their cost.
-
-
+The first term reimburses the seller's reported cost. The second term, the **information rent** is the externality seller $i$ imposes on the rest of the economy by being present. If seller $i$'s presence makes the world better by \$X for everyone else, $i$ pockets \$X above their cost.
 
 The non-pivotal assumption guarantees $W_{-i}$ is finite, so the payment is well-defined.
 
@@ -283,20 +229,12 @@ Substituting the payment rule:
 
 $$u_i = \left[ \hat{C}_i\left(S_i^*\right) - C_i\left(S_i^*\right) \right] + W\left(S^*;\hat{\theta}\right) - W_{-i}\left(\hat{\theta}_{-i}\right)$$
 
-
-
 Under truth-telling ($\hat{C}_i = C_i$), the first bracket vanishes:
 
 $$u_i^{\text{truth}} = W(S^*; \theta_i, \hat{\theta}_{-i}) - W_{-i}(\hat{\theta}_{-i})$$
 
-
-
 **The key observation**: $W_{-i}(\hat{\theta}_{-i})$ depends only on _other sellers'_ reports. It is a constant from seller $i$'s perspective — independent of what $i$ does.
 
-
-
 So to maximize $u_i$, seller $i$ must maximize $W(S^*; \theta_i, \hat{\theta}_{-i})$. But the mechanism _already_ picks $S^*$ to maximize reported welfare. If $i$ reports truthfully, the mechanism's objective is exactly $i$'s true welfare contribution. Any lie distorts the mechanism into picking a suboptimal $S^*$ from $i$'s actual perspective.
-
-
 
 Therefore, truth-telling is a **dominant strategy** — it is optimal regardless of what the other sellers report. No strategy required, no equilibrium calculation, just honesty. **Allocative efficiency** follows immediately: with truth-telling, $S^*$ maximizes the true welfare. **Individual rationality** also follows, because $W(S^*; \theta) \geq W_{-i}(\theta_{-i})$ (the unrestricted max is at least as large as the restricted max), so $u_i \geq 0$.
