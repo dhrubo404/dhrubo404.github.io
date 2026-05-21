@@ -223,7 +223,7 @@ The non-pivotal assumption guarantees $W_{-i}$ is finite, so the payment is well
 
 ## Why does this induce truth-telling? (DSIC proof sketch)
 
-The crown jewel of VCG. Seller $i$'s utility under any reported cost $\hat{C}_i$ is payment minus _true_ cost:
+Seller $i$'s utility under any reported cost $\hat{C}_i$ is payment minus _true_ cost:
 
 $$u_i = p_i - C_i(S_{i}^{\ast})$$
 
