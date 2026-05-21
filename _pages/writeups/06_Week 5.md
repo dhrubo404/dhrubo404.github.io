@@ -119,7 +119,7 @@ During one overpass of duration $\tau$, the time–frequency plane is discretize
 
 - $\alpha_x \in [0,1]$ = duty cycle, i.e. the fraction of the tile's duration that is actually quiet
 
-- $j(x) \in \{1, \dots, J\}$ = which radiometer channel the tile belongs to
+- $j(x) \in \lbrace 1, \dots, J \rbrace$ = which radiometer channel the tile belongs to
 
 Active users (sellers) control the tiles. A tile is "quiet" if its controlling seller mutes emissions to satisfy a prescribed interference mask $M_{j(x)}$ for duty cycle $\alpha_x$.
 
@@ -167,7 +167,7 @@ The **mission constraint** is that retrieval variance stays below a target for e
 
 $$\mathrm{Var}[\hat{y}_k](S) \leq \varepsilon_k^2 \quad \forall k$$
 
-This defines the **feasible allocation set** $\mathcal{A} = \{S \subseteq \Omega : \mathrm{Var}[\hat{y}_k](S) \leq \varepsilon_k^2 \; \forall k\}$.
+This defines the **feasible allocation set** $\mathcal{A} = \lbrace S \subseteq \Omega : \mathrm{Var}[\hat{y}_k](S) \leq \varepsilon_k^2 \; \forall k \rbrace$.
 
 For example, the IWV mission might require RMSE of $0.5 \, \mathrm{g/m^2}$, giving $\varepsilon_{\mathrm{IWV}}^2 = 0.25$. Any allocation $S$ that achieves this is feasible; the auction picks the cheapest one.
 
@@ -193,7 +193,7 @@ $$W(S; \theta) = v_0(S) + \sum_{i=1}^N v_i(S; \theta_i) = v_0(S) - \sum_{i=1}^N 
 
 For infeasible $S$, $W = -\infty$.
 
-The paper also makes a **non-pivotal feasibility assumption**: no single seller is essential. For any $i$, the restricted feasible set $\mathcal{A}_{-i} = \{S \in \mathcal{A} : S_i = \emptyset\}$ is non-empty. This guarantees that pivot payments are finite.
+The paper also makes a **non-pivotal feasibility assumption**: no single seller is essential. For any $i$, the restricted feasible set $\mathcal{A}_{-i} = \lbrace S \in \mathcal{A} : S_i = \emptyset \rbrace$ is non-empty. This guarantees that pivot payments are finite.
 
 ## Allocation Rule
 
