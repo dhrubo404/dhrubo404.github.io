@@ -57,11 +57,7 @@ The shape of this curve matters too. Since $\sigma^2 \propto 1/B$, going from $B
 
 What we actually care about is rarely brightness temperature itself. We want _geophysical products_ like total water vapor amount, wind speed, or sea surface temperature. These are estimated as weighted linear combinations of brightness temperatures across channels:
 
-<div>
-$$
-\hat{y}_k = c_k^T T_b = \sum_j c_{k,j} T_{b,j}
-$$
-</div>
+$$\hat{y}_k = c_k^T T_b = \sum_j c_{k,j} T_{b,j}$$
 
 Where:
 
@@ -75,11 +71,7 @@ For water vapor retrieval, the sensitivity vector is roughly $c_{\mathrm{IWV}} =
 
 Assuming channel noises are independent, the variance of the retrieved product is just weighted error propagation:
 
-<div>
-$$
-\mathrm{Var}[\hat{y}_k] = \sum_j c_{k,j}^2 \sigma_j^2 = \sum_j c_{k,j}^2 \cdot \frac{\kappa_j}{B_j \tau}
-$$
-</div>
+$$\mathrm{Var}[\hat{y}_k] = \sum_j c_{k,j}^2 \sigma_j^2 = \sum_j c_{k,j}^2 \cdot \frac{\kappa_j}{B_j \tau}$$
 
 **Why this matters?** Some channels are more "valuable" than others for a given product. This cross-channel weighting is the second lever the paper exploits: if 23.8 GHz tiles are expensive in an interference trap, the auction can substitute cheaper 36.5 GHz tiles, paying the price of lower sensitivity by buying more of them.
 
