@@ -229,7 +229,10 @@ The **buyer's valuation** is endogenous to the retrieval physics. It rewards saf
 
 <div>
 $$
-v_0(S) = \begin{cases} \lambda_0 \sum_k w_k \left(\varepsilon_k^2 - \mathrm{Var}[\hat{y}_k](S)\right) & \text{if } S \in \mathcal{A} \\ -\infty & \text{otherwise} \end{cases}
+v_0(S) = \begin{cases}
+\lambda_0 \sum_k w_k \left(\varepsilon_k^2 - \mathrm{Var}[\hat{y}_k](S)\right) & \text{if } S \in \mathcal{A} \\
+-\infty & \text{otherwise}
+\end{cases}
 $$
 </div>
 
