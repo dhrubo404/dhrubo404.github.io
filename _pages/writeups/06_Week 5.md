@@ -27,7 +27,7 @@ The measured quantity is brightness temperature $T_b$ (in Kelvin), which is a pr
 ## The Radiometer Equation and key physics
 
 The measurement noise i.e. standard deviation of the brightness temperature measurement , is:
-$$\sigma_T=\frac{T_{sys}}{\sqrt(B.\tau)}$$
+\[\sigma_T=\frac{T_{sys}}{\sqrt(B.\tau)}\]
 Where:
 - $T_sys$​ = system noise temperature (a property of the hardware)
 - $B$ = bandwidth you're integrating over (Hz)
