@@ -240,7 +240,7 @@ $$S^*(\hat{\theta}) \in \arg\max_{S \in \mathcal{A}} \left[v_0(S) - \sum_{i=1}^N
 
   
 
-In English: maximize scientific value minus total cost over all allocations that meet the mission constraint.
+Basically, maximize scientific value minus total cost over all allocations that meet the mission constraint.
 
   
 
@@ -254,7 +254,7 @@ $$p_i(\hat{\theta}) = \hat{C}_i(S_i^*) + \big[W(S^*; \hat{\theta}) - W_{-i}(S^*_
 Where $W_{-i}(S^*_{-i}) = \max_{S' \in \mathcal{A}_{-i}}\big[v_0(S') - \sum_{j \neq i} \hat{C}_j(S'_j)\big]$ is the maximum welfare achievable if seller $i$ were absent.
 
 
-The first term reimburses the seller's reported cost. The second term — the **information rent** — is the externality seller $i$ imposes on the rest of the economy by being present. If seller $i$'s presence makes the world better by $X for everyone else, $i$ pockets $X above their cost.
+The first term reimburses the seller's reported cost. The second term, the **information rent** is the externality seller $i$ imposes on the rest of the economy by being present. If seller $i$'s presence makes the world better by $X for everyone else, $i$ pockets $X above their cost.
 
   
 
