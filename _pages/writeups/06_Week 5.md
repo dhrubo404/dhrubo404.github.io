@@ -27,7 +27,7 @@ The measured quantity is brightness temperature $T_b$ (in Kelvin), which is a pr
 ## The Radiometer Equation and key physics
 
 The measurement noise i.e. standard deviation of the brightness temperature measurement , is:
-\[\sigma_T=\frac{T_{sys}}{\sqrt(B.\tau)}\]
+$$\sigma_T=\frac{T_{sys}}{\sqrt(B.\tau)}$$
 Where:
 - $T_sys$​ = system noise temperature (a property of the hardware)
 - $B$ = bandwidth you're integrating over (Hz)
@@ -44,6 +44,7 @@ The shape of this curve matters too. Since $\sigma^2 \propto 1/B$, going from $B
 What we actually care about is rarely brightness temperature itself. We want _geophysical products_ like total water vapor amount, wind speed, or sea surface temperature. These are estimated as weighted linear combinations of brightness temperatures across channels:
 
 $$\hat{y}_k = c_k^T T_b = \sum_j c_{k,j} T_{b,j}$$
+
 Where:
 
 - $\hat{y}_k$ = estimate of product $k$ (e.g., water vapor)
