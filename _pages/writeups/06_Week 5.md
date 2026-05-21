@@ -229,12 +229,11 @@ The **buyer's valuation** is endogenous to the retrieval physics. It rewards saf
 
 <div>
 $$
-v_0(S) = \begin{cases}
-\lambda_0 \sum_k w_k \left(\varepsilon_k^2 - \mathrm{Var}[\hat{y}_k](S)\right) & \text{if } S \in \mathcal{A} \\
--\infty & \text{otherwise}
-\end{cases}
+v_0(S) = \lambda_0 \sum_k w_k \left(\varepsilon_k^2 - \mathrm{Var}[\hat{y}_k](S)\right) \quad \text{if } S \in \mathcal{A}
 $$
 </div>
+
+and $v_0(S) = -\infty$ otherwise.
 
 The $-\infty$ outside $\mathcal{A}$ is a hard mission constraint: no infeasible allocation is ever chosen. The $\lambda_0$ converts variance reduction to dollars, and $w_k$ are relative weights across products.
 
