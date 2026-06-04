@@ -83,11 +83,7 @@ We run this on a fixed instance: a $3 \times 4$ grid (3 frequency channels, 4 ti
 
 We then compute VCG payments. Each winner pays the externality it imposes, the welfare the others lose because it is present. With $W^{*}_{-i}$ the optimal welfare without bidder $i$,
 
-<div>
-$$
-p_i = W^{*}_{-i} - \left(W^{*} - v_i\right) \qquad u_i = v_i - p_i
-$$
-</div>
+$$p_i = W^{*}_{-i} - \left(W^{*} - v_i\right) \qquad u_i = v_i - p_i$$
 
 Here $p_P = 10$, $p_R = 9$, $p_S = 14$ (revenue $33$), with utilities $u_P = 2$, $u_R = 2$, $u_S = 4$. Every utility is non-negative, so no winner overpays (individual rationality), and since a bidder's payment does not depend on its own bid, truthful bidding is a dominant strategy (DSIC).
 
