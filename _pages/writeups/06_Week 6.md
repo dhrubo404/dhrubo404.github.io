@@ -85,7 +85,7 @@ We then compute VCG payments. Each winner pays the externality it imposes, the w
 
 <div>
 $$
-p_i = W_{-i}^{*} - \left(W^{*} - v_i\right)
+p_i = W_{-i}^* - \left(W^{*} - v_i\right)
 $$
 </div>
 
