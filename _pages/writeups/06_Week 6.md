@@ -79,7 +79,7 @@ This is no longer a pure 0-1 knapsack but a combinatorial auction over named blo
 
 ## Combinatorial VCG auction on the grid
 
-We run this on a fixed instance: a $3 \times 4$ grid (3 frequency channels, 4 time slots, so $m = 12$ blocks) and $n = 6$ bidders, each requesting a bundle. The code solves the winner-determination problem exactly by searching all subsets of bidders and keeping the highest-value subset with no overlapping bundles. The optimum has welfare $W^{*} = 41$, winners $\{P, R, S\}$ and losers $\{Q, T, V\}$.
+We run this on a small fixed instance: a band section split into $m = 6$ blocks and $n = 5$ bidders (A through E), each requesting a bundle of blocks. The code solves the winner-determination problem exactly by searching all subsets of bidders and keeping the highest-value subset with no overlapping bundles. The optimum has welfare $W^{*} = 25$, winners $\{B, D, E\}$ and losers $\{A, C\}$.
 
 We then compute VCG payments. Each winner pays the externality it imposes, the welfare the others lose because it is present. With $W^{*}_{-i}$ the optimal welfare without bidder $i$,
 
@@ -89,7 +89,7 @@ p_i = W_{-i}^* - \left(W^{*} - v_i\right)
 $$
 </div>
 
-Here $p_P = 10$, $p_R = 9$, $p_S = 14$ (revenue $33$), with utilities $u_P = 2$, $u_R = 2$, $u_S = 4$. Every utility is non-negative, so no winner overpays (individual rationality), and since a bidder's payment does not depend on its own bid, truthful bidding is a dominant strategy (DSIC).
+Here $p_B = 5$, $p_D = 4$, $p_E = 2$ (revenue $11$), with utilities $u_B = 3$, $u_D = 8$, $u_E = 3$. Every utility is non-negative, so no winner overpays (individual rationality), and since a bidder's payment does not depend on its own bid, truthful bidding is a dominant strategy (DSIC).
 
 ## Does block granularity matter?
 
